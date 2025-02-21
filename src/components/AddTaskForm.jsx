@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import Swal from "sweetalert2";
+import { AuthContext } from "./../providers/AuthProvider";
 
 const AddTaskForm = () => {
+  const { user } = useContext(AuthContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("To-Do");
@@ -11,7 +13,6 @@ const AddTaskForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!title) return;
     if (!description) return;
 
@@ -20,37 +21,43 @@ const AddTaskForm = () => {
       description,
       dueDate,
       category,
+      email: user?.email,
     };
+    console.log(newTask?.email);
 
-    axios.post(`${import.meta.env.VITE_URL}/tasks`, newTask).then((res) => {
-      if (res.data.insertedId) {
-        Swal.fire({
-          title: "Task added successfully",
-          showClass: {
-            popup: `
+    try {
+      axios.post(`${import.meta.env.VITE_URL}/tasks`, newTask).then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            title: "Task added successfully",
+            showClass: {
+              popup: `
               animate__animated
               animate__fadeInUp
               animate__faster
             `,
-          },
-          hideClass: {
-            popup: `
+            },
+            hideClass: {
+              popup: `
               animate__animated
               animate__fadeOutDown
               animate__faster
             `,
-          },
-        });
+            },
+          });
 
-        setTitle("");
-        setDescription("");
-        setCategory("To-Do");
-      }
-    });
+          setTitle("");
+          setDescription("");
+          setCategory("To-Do");
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-    <div className="w-11/12 mx-auto md:max-w-xl  shadow-lg rounded-lg p-6 my-10">
+    <div className="w-11/12 mx-auto md:max-w-xl  shadow-lg rounded-lg p-6 my-10 ">
       <h2 className="text-2xl font-semibold   mb-4 flex items-center justify-center gap-2">
         <BiCalendar /> Add New Task
       </h2>
@@ -81,30 +88,34 @@ const AddTaskForm = () => {
           ></textarea>
           <p className="text-xs  mt-1">Max 200 characters</p>
         </div>
-        {/* Category Selection */}
-        <div>
-          <label className="block font-medium ">Category</label>
-          <select
-            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="To-Do">📌 To-Do</option>
-            <option value="In Progress">🚴‍♂️ In Progress</option>
-            <option value="Done">✅ Done</option>
-          </select>
-        </div>
-        {/* Last Date */}
-        <div>
-          <label className="block font-medium ">Task Completion Date</label>
-          <input
-            type="date"
-            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
-            placeholder="Enter task title..."
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            required
-          />
+
+        {/* Category Selection and Due Date */}
+        <div className="flex items-center justify-between gap-4 w-full ">
+          {/* Category Selection */}
+          <div className="w-full">
+            <label className="block font-medium ">Category</label>
+            <select
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="To-Do">📌 To-Do</option>
+              <option value="In Progress">🚴‍♂️ In Progress</option>
+              <option value="Done">✅ Done</option>
+            </select>
+          </div>
+          {/* Last Date */}
+          <div className="w-full">
+            <label className="block font-medium ">Task Completion Date</label>
+            <input
+              type="date"
+              className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="Enter task title..."
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              required
+            />
+          </div>
         </div>
         {/* Submit Button */}
 

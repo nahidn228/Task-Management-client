@@ -63,7 +63,7 @@ const Footer = () => {
 
         <div className="flex flex-col items-center sm:flex-row sm:justify-between">
           <p className="text-sm text-gray-500 ">
-            © Copyright 2021. All Rights Reserved.
+            © Copyright {new Date().getFullYear()}. All Rights Reserved.
           </p>
 
           <div className="flex -mx-2">
@@ -98,7 +98,8 @@ const Footer = () => {
             </a>
 
             <a
-              href="#"
+              target="_blank"
+              href="https://github.com/nahidn228/"
               className="mx-2 text-gray-600 transition-colors duration-300 hover:text-blue-500 "
               aria-label="Github"
             >

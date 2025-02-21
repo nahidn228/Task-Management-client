@@ -7,7 +7,7 @@ const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
   return (
-    <div className="bg-base-100 shadow-lg backdrop-blur-md  sticky top-0 z-50">
+    <div className="bg-white/35 backdrop-blur-lg shadow-lg   sticky top-0 z-50">
       <div className="navbar  w-11/12 mx-auto">
         {/* Left Side - Logo */}
         <div className="flex-1">

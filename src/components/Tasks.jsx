@@ -1,23 +1,27 @@
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
-import { CiTimer } from "react-icons/ci";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { CiBoxList } from "react-icons/ci";
+import { useContext, useEffect, useState } from "react";
+import { CiBoxList, CiTimer } from "react-icons/ci";
 import { FaTasks } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import { TbProgress } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AuthContext } from "./../providers/AuthProvider";
 
 const Tasks = () => {
   const navigate = useNavigate();
 
+  const { user } = useContext(AuthContext);
+
   const { data: tasks = [], refetch } = useQuery({
     queryKey: ["tasks"],
     queryFn: async () => {
-      const res = await axios.get(`${import.meta.env.VITE_URL}/tasks`);
+      const res = await axios.get(
+        `${import.meta.env.VITE_URL}/tasks/${user?.email}`
+      );
       return res.data;
     },
   });
@@ -109,27 +113,27 @@ const Tasks = () => {
     {
       id: 1,
       name: "To-Do",
-      bgClass: "bg-gray-100 border border-gray-300 shadow-md",
+      bgClass: "bg-gray-100  shadow-md",
       icon: <CiBoxList className="text-xl" />,
     },
     {
       id: 2,
       name: "In Progress",
-      bgClass: "bg-blue-100 border border-blue-300 shadow-md",
+      bgClass: "bg-blue-100  shadow-md",
       icon: <TbProgress className="text-xl animate-spin" />,
     },
     {
       id: 3,
       name: "Done",
-      bgClass: "bg-green-100 border border-green-300 shadow-md",
+      bgClass: "bg-green-100  shadow-md",
       icon: <IoCheckmarkDoneCircleOutline className="text-xl" />,
     },
   ];
 
   return (
-    <div className="   min-h-screen">
+    <div className="    min-h-screen">
       <div className=" w-11/12 mx-auto ">
-        <h2 className="text-3xl font-bold py-10 text-center flex items-center justify-center gap-2 animate-pulse">
+        <h2 className="text-3xl  font-bold py-10 text-center flex items-center justify-center gap-2 animate-pulse">
           <FaTasks /> Task Board
         </h2>
         <DragDropContext onDragEnd={onDragEnd}>
@@ -138,10 +142,16 @@ const Tasks = () => {
               <Droppable key={column.name} droppableId={column.name}>
                 {(provided) => (
                   <div
-                    className={`${column.bgClass} bg-transparent  p-5 rounded-lg min-h-96 shadow-2xl`}
+                    className={`${column.bgClass} bg-transparent  p-5 rounded-lg min-h-96 shadow-2xl relative overflow-hidden`}
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
+                    {/* Top right design */}
+                    <div className="w-24 h-24 bg-primary rounded-full absolute -right-5 -top-7">
+                      <p className="absolute bottom-6 left-7 text-white text-2xl">
+                       
+                      </p>
+                    </div>
                     <h2
                       className={`text-xl font-bold mb-3  flex items-center justify-center gap-2 ${
                         column.id == 2 && "text-blue-600"
@@ -162,7 +172,7 @@ const Tasks = () => {
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
-                              className="bg-white p-3  rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition duration-300 flex items-center justify-between gap-2 my-3"
+                              className="bg-blue-100 dark:bg-green-900 border-l-4 border-violet-500 dark:border-green-700 text-green-900 dark:text-green-100 p-2 rounded-lg flex items-center justify-between transition duration-300 ease-in-out hover:bg-blue-200 dark:hover:bg-green-800 transform hover:scale-105 mt-6"
                             >
                               <div className="">
                                 <h3 className="font-semibold text-base text-gray-800 uppercase">
@@ -172,7 +182,8 @@ const Tasks = () => {
                                   {task?.description}
                                 </p>
                                 <p className="text-gray-600 mb-3 text-xs flex items-center gap-1">
-                                 <CiTimer className='text-sm' /> {new Date(task?.timestamp).toLocaleString()}
+                                  <CiTimer className="text-sm" />{" "}
+                                  {new Date(task?.dueDate).toLocaleString()}
                                 </p>
                               </div>
                               {/* CTA Button */}
