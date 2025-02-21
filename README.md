@@ -70,7 +70,7 @@ FIREBASE_API_KEY=your_firebase_api_key
 
 ## 📌 To-Do & Future Enhancements
 - ✅ Drag-and-Drop functionality (Implemented)
-- 🌙 Dark Mode Toggle
+- 🌙 Dark Mode Toggle (Implemented)
 - 🏷 Task Due Dates with Overdue Indicators
 - 📊 Activity Log (Track task updates)
 
