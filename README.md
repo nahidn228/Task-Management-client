@@ -3,7 +3,7 @@
 A modern and responsive task management web application that allows users to add, edit, delete, and reorder tasks using a drag-and-drop interface. Tasks are categorized into **To-Do, In Progress, and Done**, and all changes are saved instantly to the database for real-time synchronization.
 
 ## 🚀 Live Demo
-🔗 [Live App](your-live-link-here)
+🔗 [Live App](https://task-management0.web.app)
 
 
 
@@ -32,14 +32,14 @@ A modern and responsive task management web application that allows users to add
 ## 📦 Installation & Setup
 ### 1️⃣ Clone the Repository
 ```sh
-git clone https://github.com/your-username/task-management-app.git
-cd task-management-app
+git clone https://github.com/nahidn228/Task-Management-client.git
+cd Task-Management-client
 ```
 
 ### 2️⃣ Install Dependencies
 #### Frontend:
 ```sh
-cd frontend
+cd Task-Management-client
 npm install
 npm run dev
 ```
@@ -79,5 +79,5 @@ This project is licensed under the **MIT License**.
 
 ---
 
-🎯 Built with ❤️ by **[Your Name](https://github.com/your-username)**
+🎯 Built with ❤️ by **[Nahid Hasan](https://github.com/nahidn228)**
 

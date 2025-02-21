@@ -7,6 +7,7 @@ const AddTaskForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("To-Do");
+  const [dueDate, setDueDate] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ const AddTaskForm = () => {
     const newTask = {
       title,
       description,
-      timestamp: new Date().toISOString(),
+      dueDate,
       category,
     };
 
@@ -92,6 +93,18 @@ const AddTaskForm = () => {
             <option value="In Progress">🚴‍♂️ In Progress</option>
             <option value="Done">✅ Done</option>
           </select>
+        </div>
+        {/* Last Date */}
+        <div>
+          <label className="block font-medium ">Task Completion Date</label>
+          <input
+            type="date"
+            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+            placeholder="Enter task title..."
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+            required
+          />
         </div>
         {/* Submit Button */}
 

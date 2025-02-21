@@ -15,7 +15,7 @@ const Login = () => {
                     name: user?.displayName,
                     email: user?.email
                 }
-                axios.post('http://localhost:5000/users', userInfo)
+                axios.post(`${import.meta.env.VITE_URL}/users`, userInfo)
                     .then(res => {
                         console.log("User saved:", res.data);
                     })
