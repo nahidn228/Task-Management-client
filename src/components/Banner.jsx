@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 const Banner = () => {
   return (
     <div className="hero  min-h-screen">
-      <div className="hero-content text-center">
+      <div className="hero-content text-center  w-11/12 mx-auto">
         <div className="w-11/12 text-center">
           <div className="flex justify-center py-5">
             <img
-              src="https://img.icons8.com/?size=96&id=8gR77jBNhfyz&format=png"
+              src="https://img.icons8.com/?size=100&id=5jmZ3Yg9r0Db&format=png&color=000000"
               alt=""
               className="animate-bounce"
             />

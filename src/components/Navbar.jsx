@@ -3,78 +3,116 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { AuthContext } from "../providers/AuthProvider";
 import ThemeToggle from "./ThemeToggle/ThemeToggle";
+
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+
   return (
-    <div className="navbar  shadow-sm  mx-auto">
-      <div className="flex-1">
-        <Link to="/" className="flex gap-2 items-center">
-          <img className="w-auto h-7" src={logo} alt="" />
-          <span className="font-bold">Task Management</span>
-        </Link>
-      </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1 items-center lg:hidden flex">
-          <li>
-            <ThemeToggle />
-          </li>
-
-          {!user && (
-            <li>
-              <NavLink to="/login">Login</NavLink>
-            </li>
-          )}
-        </ul>
-        <ul className="menu menu-horizontal px-1 items-center hidden lg:flex">
-          
-          <li>
-            <ThemeToggle />
-          </li>
-        </ul>
-
-        <div className="dropdown dropdown-end z-50">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div title={user?.displayName} className="w-10 rounded-full">
-              <img
-                referrerPolicy="no-referrer"
-                alt="User Profile Photo"
-                src={
-                  user
-                    ? user?.photoURL
-                    : "https://cdn-icons-png.flaticon.com/512/1177/1177568.png"
-                }
-              />
-            </div>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/tasks">Tasks</NavLink>
-            </li>
-            <li>
-              <NavLink to="/addTask">Add Tasks</NavLink>
-            </li>
-          
-          </ul>
+    <div className="bg-base-100 shadow-lg ">
+      <div className="navbar  w-11/12 mx-auto">
+        {/* Left Side - Logo */}
+        <div className="flex-1">
+          <Link to="/" className="flex items-center gap-2">
+            <img className="w-auto h-8 md:h-10" src={logo} alt="Logo" />
+            <span className="font-bold text-lg md:text-xl text-primary">
+              Task Management
+            </span>
+          </Link>
         </div>
-        {!user ? (
-          <NavLink className="btn ml-2" to="/login">
-            Login
-          </NavLink>
-        ) : (
-          <button onClick={logOut} className="btn ml-2 block text-center">
-            Logout
-          </button>
-        )}
+
+        {/* Right Side - Menu Items */}
+        <div className="flex-none flex items-center gap-4">
+          {/* Theme Toggle */}
+          <ThemeToggle />
+
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex">
+            <ul className="menu menu-horizontal px-1 space-x-4">
+              <li>
+                <NavLink to="/" className="hover:text-primary transition">
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/tasks" className="hover:text-primary transition">
+                  Tasks
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/addTask"
+                  className="hover:text-primary transition"
+                >
+                  Add Task
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+
+          {/* User Profile / Login Button */}
+          {user ? (
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div
+                  title={user?.displayName}
+                  className="w-10 h-10 rounded-full overflow-hidden"
+                >
+                  <img
+                    referrerPolicy="no-referrer"
+                    className="object-cover"
+                    alt="User Profile Photo"
+                    src={
+                      user?.photoURL ||
+                      "https://cdn-icons-png.flaticon.com/512/1177/1177568.png"
+                    }
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 shadow-lg bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <NavLink to="/" className="hover:bg-gray-200 rounded-lg px-2">
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/tasks"
+                    className="hover:bg-gray-200 rounded-lg px-2"
+                  >
+                    Tasks
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/addTask"
+                    className="hover:bg-gray-200 rounded-lg px-2"
+                  >
+                    Add Task
+                  </NavLink>
+                </li>
+                <li>
+                  <button
+                    onClick={logOut}
+                    className="btn btn-outline btn-error mt-2"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <NavLink className="btn btn-primary px-5" to="/login">
+              Login
+            </NavLink>
+          )}
+        </div>
       </div>
     </div>
   );

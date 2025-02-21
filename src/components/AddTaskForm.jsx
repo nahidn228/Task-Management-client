@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { BiCalendar } from "react-icons/bi";
 
 const AddTaskForm = () => {
   const [title, setTitle] = useState("");
@@ -28,13 +29,13 @@ const AddTaskForm = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6 my-10">
-      <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">📝 Add New Task</h2>
+    <div className="w-11/12 mx-auto md:max-w-xl  shadow-lg rounded-lg p-6 my-10">
+      <h2 className="text-2xl font-semibold   mb-4 flex items-center justify-center gap-2"><BiCalendar /> Add New Task</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         
         {/* Title Field */}
         <div>
-          <label className="block font-medium text-gray-700">Title</label>
+          <label className="block font-medium ">Title</label>
           <input
             type="text"
             className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
@@ -44,12 +45,12 @@ const AddTaskForm = () => {
             maxLength={50}
             required
           />
-          <p className="text-xs text-gray-500 mt-1">Max 50 characters</p>
+          <p className="text-xs  mt-1">Max 50 characters</p>
         </div>
 
         {/* Description Field */}
         <div>
-          <label className="block font-medium text-gray-700">Description</label>
+          <label className="block font-medium ">Description</label>
           <textarea
             className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="Write a brief description..."
@@ -57,12 +58,12 @@ const AddTaskForm = () => {
             onChange={(e) => setDescription(e.target.value)}
             maxLength={200}
           ></textarea>
-          <p className="text-xs text-gray-500 mt-1">Max 200 characters</p>
+          <p className="text-xs  mt-1">Max 200 characters</p>
         </div>
 
         {/* Category Selection */}
         <div>
-          <label className="block font-medium text-gray-700">Category</label>
+          <label className="block font-medium ">Category</label>
           <select
             className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
             value={category}
