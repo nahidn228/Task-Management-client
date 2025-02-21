@@ -1,4 +1,5 @@
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
+import { CiTimer } from "react-icons/ci";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -94,7 +95,7 @@ const Tasks = () => {
       setLocalTasks([...otherTasks, ...sourceTasks, ...destinationTasks]);
 
       try {
-        await axios.put(`http://localhost:5000/tasks/${draggableId}`, {
+        await axios.put(`${import.meta.env.VITE_URL}/tasks/${draggableId}`, {
           category: destination.droppableId,
         });
         refetch();
@@ -126,9 +127,9 @@ const Tasks = () => {
   ];
 
   return (
-    <div className="  min-h-screen">
+    <div className="   min-h-screen">
       <div className=" w-11/12 mx-auto ">
-        <h2 className="text-3xl font-bold py-10 text-center flex items-center justify-center gap-2 ">
+        <h2 className="text-3xl font-bold py-10 text-center flex items-center justify-center gap-2 animate-pulse">
           <FaTasks /> Task Board
         </h2>
         <DragDropContext onDragEnd={onDragEnd}>
@@ -137,7 +138,7 @@ const Tasks = () => {
               <Droppable key={column.name} droppableId={column.name}>
                 {(provided) => (
                   <div
-                    className={`${column.bgClass} bg-transparent  p-5 rounded-lg min-h-[300px]`}
+                    className={`${column.bgClass} bg-transparent  p-5 rounded-lg min-h-96 shadow-2xl`}
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
@@ -161,18 +162,21 @@ const Tasks = () => {
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
-                              className="bg-white p-3  rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition duration-300 flex items-center gap-2 my-3"
+                              className="bg-white p-3  rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition duration-300 flex items-center justify-between gap-2 my-3"
                             >
                               <div className="">
-                                <h3 className="font-semibold text-lg text-gray-800 uppercase">
-                                  {task.title}
+                                <h3 className="font-semibold text-base text-gray-800 uppercase">
+                                  {task?.title}
                                 </h3>
-                                <p className="text-gray-600 mb-3">
-                                  {task.description}
+                                <p className="text-gray-600 text-sm mb-3">
+                                  {task?.description}
+                                </p>
+                                <p className="text-gray-600 mb-3 text-xs flex items-center gap-1">
+                                 <CiTimer className='text-sm' /> {new Date(task?.timestamp).toLocaleString()}
                                 </p>
                               </div>
                               {/* CTA Button */}
-                              <div className="flex items-center gap-1">
+                              <div className="flex flex-col items-center gap-1">
                                 <button
                                   className="btn btn-sm btn-primary rounded-xl  text-white  transition duration-300"
                                   onClick={() => handleUpdate(task._id)}
@@ -195,7 +199,7 @@ const Tasks = () => {
                                     <path d="m1.245.465-.15-.15a.02.02 0 0 0-.016-.006.023.023 0 0 0-.023.022v.108c0 .036.029.065.065.065h.107a.023.023 0 0 0 .023-.023.02.02 0 0 0-.007-.016"></path>
                                   </svg>
                                   <svg
-                                    width="12"
+                                    width="14"
                                     fill="none"
                                     viewBox="0 0 39 7"
                                     className="origin-right duration-500 group-hover:rotate-90"
@@ -217,7 +221,7 @@ const Tasks = () => {
                                     ></line>
                                   </svg>
                                   <svg
-                                    width="16"
+                                    width="12"
                                     fill="none"
                                     viewBox="0 0 33 39"
                                     className=""

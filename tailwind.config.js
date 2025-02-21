@@ -7,6 +7,18 @@ export default {
       fontFamily: {
         lato: "'Lato', sans-serif",
       },
+      animation: {
+        "border-animation": "borderMove 2s linear infinite",
+      },
+      keyframes: {
+        borderMove: {
+          "0%": { borderColor: "red" },
+          "25%": { borderColor: "blue" },
+          "50%": { borderColor: "green" },
+          "75%": { borderColor: "yellow" },
+          "100%": { borderColor: "red" },
+        },
+      },
     },
   },
   plugins: [require("daisyui")],

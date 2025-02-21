@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../assets/images/logo.png";
 import { AuthContext } from "../providers/AuthProvider";
 import ThemeToggle from "./ThemeToggle/ThemeToggle";
 
@@ -8,12 +7,16 @@ const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
 
   return (
-    <div className="bg-base-100 shadow-lg ">
+    <div className="bg-base-100 shadow-lg backdrop-blur-md  sticky top-0 z-50">
       <div className="navbar  w-11/12 mx-auto">
         {/* Left Side - Logo */}
         <div className="flex-1">
           <Link to="/" className="flex items-center gap-2">
-            <img className="w-auto h-8 md:h-10" src={logo} alt="Logo" />
+            <img
+              className="w-auto h-8 md:h-10"
+              src="https://img.icons8.com/?size=100&id=tIUSbVurTTrH&format=png&color=000000"
+              alt="Logo"
+            />
             <span className="font-bold text-lg md:text-xl text-primary">
               Task Management
             </span>
@@ -74,7 +77,7 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 shadow-lg bg-base-100 rounded-box w-52"
+                className="menu menu-sm dropdown-content mt-3 shadow-lg bg-base-100 rounded-box w-52 z-40"
               >
                 <li>
                   <NavLink to="/" className="hover:bg-gray-200 rounded-lg px-2">
@@ -100,7 +103,7 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={logOut}
-                    className="btn btn-outline btn-error mt-2"
+                    className="btn btn-outline btn-error btn-sm mt-2"
                   >
                     Logout
                   </button>
@@ -108,7 +111,7 @@ const Navbar = () => {
               </ul>
             </div>
           ) : (
-            <NavLink className="btn btn-primary px-5" to="/login">
+            <NavLink className=" btn btn-primary" to="/login">
               Login
             </NavLink>
           )}
